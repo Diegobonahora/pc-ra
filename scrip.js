@@ -1,31 +1,20 @@
-async function checkCameraAccess() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-    stream.getTracks().forEach(t => t.stop());
-    return true;
-  } catch (err) {
-    console.warn("Cámara no accesible:", err);
-    return false;
-  }
-}
+window.addEventListener('load', () => {
+  const loading = document.getElementById('loading');
 
-async function initCamera() {
-  const scene = document.querySelector("#scene");
-  const errorBox = document.querySelector("#errorBox");
+  // Detecta si la cámara arranca
+  const checkCam = setInterval(() => {
+    const video = document.querySelector('video');
+    if (video && video.readyState >= 2) {
+      loading.style.display = 'none';
+      clearInterval(checkCam);
+    }
+  }, 500);
 
-  const access = await checkCameraAccess();
-  if (!access) {
-    errorBox.style.display = "flex";
-    scene.style.display = "none";
-  } else {
-    errorBox.style.display = "none";
-    scene.style.display = "block";
-  }
-}
-
-document.getElementById("retry").addEventListener("click", () => {
-  initCamera();
-  location.reload();
+  // Si no hay cámara, mostrar mensaje
+  setTimeout(() => {
+    const video = document.querySelector('video');
+    if (!video || video.readyState < 2) {
+      loading.innerHTML = "No se pudo acceder a la cámara. Revisá los permisos.";
+    }
+  }, 5000);
 });
-
-window.addEventListener("load", initCamera);
