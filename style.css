@@ -1,17 +1,40 @@
-body {
+body, html {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
   overflow: hidden;
-  background-color: black;
-  color: white;
+  background: #000;
+  font-family: Arial, sans-serif;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
+#errorBox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
   text-align: center;
-  background: rgba(0, 0, 0, 0.5);
+}
+
+#errorBox h2 {
+  margin: 0 0 10px 0;
+}
+
+#retry {
+  background: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#retry:hover {
+  background: #0056b3;
 }

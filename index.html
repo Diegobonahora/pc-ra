@@ -3,45 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Realidad Aumentada - Componentes de PC</title>
+  <title>PC en Realidad Aumentada</title>
 
-  <!-- Librerías principales -->
+  <!-- Librerías -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.5.0/dist/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.3/dist/mindar-image-aframe.prod.js"></script>
-  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
+  <!-- Archivos locales -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Pantalla de bienvenida -->
-  <div class="overlay">
-    <h1>Componentes de PC en Realidad Aumentada</h1>
-    <p>Apuntá tu cámara hacia la imagen del marcador para ver el modelo 3D.</p>
+  <div id="errorBox" style="display: none;">
+    <h2>No se pudo acceder a la cámara 📷</h2>
+    <p>Por favor, asegurate de haber permitido el acceso en tu navegador.</p>
+    <button id="retry">Reintentar cámara</button>
   </div>
 
-  <!-- Escena de A-Frame con MindAR -->
   <a-scene
-    mindar-image="imageTargetSrc: ./assets/marker.mind; autoStart: true;"
+    id="scene"
+    mindar-image="imageTargetSrc: ./marker.mind;"
     color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights"
     vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: true"
+    embedded
   >
-    <a-assets>
-      <!-- Modelo 3D -->
-      <a-asset-item id="pcModel" src="./assets/pc.glb"></a-asset-item>
-    </a-assets>
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <!-- Cámara -->
-    <a-camera position="0 0 0" look-controls="false"></a-camera>
-
-    <!-- Cuando detecte el marcador -->
     <a-entity mindar-image-target="targetIndex: 0">
-      <a-gltf-model
-        src="#pcModel"
-        scale="0.3 0.3 0.3"
-        position="0 -0.2 0"
-        rotation="0 0 0"
-      ></a-gltf-model>
+      <a-box color="skyblue" depth="0.5" height="0.5" width="0.5" position="0 0 0"></a-box>
+      <a-text value="PC" color="#fff" align="center" position="0 -0.5 0"></a-text>
     </a-entity>
   </a-scene>
 
