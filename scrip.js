@@ -1,9 +1,5 @@
 async function checkCameraAccess() {
   try {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const cameras = devices.filter(d => d.kind === "videoinput");
-    if (cameras.length === 0) throw new Error("No hay cámaras disponibles");
-
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     stream.getTracks().forEach(t => t.stop());
     return true;
